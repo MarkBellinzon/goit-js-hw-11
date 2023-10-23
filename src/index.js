@@ -1,9 +1,9 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
-import './sass/style.css';
+import './style.css';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import { fetchImage } from './sass/fetchAxios';
+import { fetchImage } from './fetchAxios';
 
 const form = document.querySelector('.search-form');
 const input = document.querySelector('.search-input');
