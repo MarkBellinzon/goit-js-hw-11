@@ -1,0 +1,153 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(220, 224, 222);
+  color: #f8f8f8;
+  line-height: 1.7;
+  margin: 0;
+  background: rgb(223, 223, 223);
+  overflow-x: hidden;
+}
+
+p {
+  font-size: 13px;
+  letter-spacing: normal;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+button {
+  text-align: center;
+  align-items: center;
+  background-color: rgb(134, 228, 196);
+  padding: 10px 20px;
+  margin: 0 auto;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: bold;
+}
+button:hover {
+  background-color: #c0c5f0;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.wrapper-button {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.search-button {
+  margin: 0;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(71, 119, 111, 0.878),
+    rgba(71, 119, 111, 0.878)
+  );
+  padding: 20px;
+}
+
+.search-input {
+  width: 30%;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  border: none;
+  font-size: 17px;
+  padding: 5px;
+  border-radius: 5px 5px;
+  outline: none;
+  /* color: #404243; */
+  margin-right: 15px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+  padding: 0;
+  max-width: calc(100vw - 60px);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.photo-card {
+  background: linear-gradient(
+    270deg,
+    rgba(123, 182, 192, 0.878),
+    rgba(123, 182, 192, 0.878)
+  );
+  border: 1px solid black;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 1s;
+  box-shadow: 8px 15px 15px rgba(0, 0, 0, 0.5);
+}
+
+.photo-card:hover,
+.photo-card:focus {
+  transform: scale(1.02);
+  -webkit-box-shadow: 0px 10px 13px -7px #136161,
+    4px 1px 14px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px 10px 13px -7px #000000, 4px 1px 14px 5px rgba(0, 0, 0, 0);
+}
+
+.gallary-image {
+  transition: transform 400ms;
+}
+
+.info {
+  flex-direction: column;
+  color: #423c26;
+  padding: 0px 0px 0px 10px;
+}
+
+.info-item {
+  text-align: left;
+  margin: auto;
+}
+
+.gallary-image {
+  display: block;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.btn-up {
+  position: fixed;
+  background-color: rgb(64, 151, 13);
+  right: 20px;
+  bottom: 20px;
+  border-radius: 22px;
+  cursor: pointer;
+  width: 64px;
+  height: 64px;
+}
+
+.btn-up::before {
+  content: '';
+  text-align: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 22px;
+  top: 22px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 17V4M3 10l7-7 7 7'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-up:hover {
+    background-color: #2d6a75;
+  }
+}

@@ -8,6 +8,24 @@
     <script type="module" src="./index.js"></script>
   </head>
   <body>
-    <include src="./partials/example.html"></include>
+    <form class="search-form" id="search-form" action="">
+      <input
+        class="search-input"
+        type="text"
+        name="searchQuery"
+        autocomplete="off"
+        placeholder="Search images..."
+      />
+      <button class="search-button" type="submit">Search</button>
+    </form>
+
+    <div class="gallery"></div>
+
+    <div class="wrapper-button">
+      <button type="button" class="load-more">Load more</button>
+    </div>
+    <div class="btn-up btn-up_hide"></div>
+
+    <script src="index.js" type="module"></script>
   </body>
 </html>
