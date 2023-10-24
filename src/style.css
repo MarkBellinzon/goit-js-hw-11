@@ -14,13 +14,13 @@ body {
 p {
   font-size: 13px;
   letter-spacing: normal;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 1px #bdb7b7;
 }
 
 button {
   text-align: center;
   align-items: center;
-  background-color: rgb(134, 228, 196);
+  background-color: rgb(50, 174, 179);
   padding: 10px 20px;
   margin: 0 auto;
   border: none;
@@ -30,10 +30,28 @@ button {
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
     border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: bold;
+
+  /* background: #67ebf1;
+  color: #f8f8f8; */
+  box-shadow: 0 0 5px #62f1f8, 0 0 20px #62f1f8, 0 0 40px #68e4eb,
+    0 0 200px #5ae5ec;
+
+  -moz-transition: background-color 0.8s 0.1s ease;
+  -o-transition: background-color 0.8s 0.1s ease;
+  -webkit-transition: background-color 0.8s 0.1s ease;
 }
+
 button:hover {
-  background-color: #c0c5f0;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  /* background-color: #c0c5f0; */
+  /* box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); */
+
+  background: #67ebf1;
+  color: #f8f8f8;
+  box-shadow: 0 0 5px #62f1f8, 0 0 20px #62f1f8, 0 0 40px #68e4eb,
+    0 0 200px #5ae5ec;
+  -moz-transition: background-color 0.8s 0.1s ease;
+  -o-transition: background-color 0.8s 0.1s ease;
+  -webkit-transition: background-color 0.8s 0.1s ease;
 }
 
 .wrapper-button {
@@ -43,6 +61,22 @@ button:hover {
 
 .search-button {
   margin: 0;
+}
+
+.search-button:hover {
+  color: #be0707;
+  -moz-transition: background-color 1.5s 0.1s ease;
+  -o-transition: background-color 1.5s 0.1s ease;
+  -webkit-transition: background-color 1.5s 0.1s ease;
+  transition-duration: 1s;
+}
+
+.load-more:hover {
+  color: #be0707;
+  -moz-transition: background-color 1.5s 0.1s ease;
+  -o-transition: background-color 1.5s 0.1s ease;
+  -webkit-transition: background-color 1.5s 0.1s ease;
+  transition-duration: 1s;
 }
 
 .search-form {
@@ -65,7 +99,7 @@ button:hover {
   padding: 5px;
   border-radius: 5px 5px;
   outline: none;
-  /* color: #404243; */
+  color: #404243;
   margin-right: 15px;
 }
 
@@ -97,7 +131,7 @@ button:hover {
 .photo-card:hover,
 .photo-card:focus {
   transform: scale(1.02);
-  -webkit-box-shadow: 0px 10px 13px -7px #136161,
+  -webkit-box-shadow: 0px 10px 13px -7px #4dd3d3,
     4px 1px 14px 5px rgba(0, 0, 0, 0);
   box-shadow: 0px 10px 13px -7px #000000, 4px 1px 14px 5px rgba(0, 0, 0, 0);
 }
@@ -126,13 +160,21 @@ button:hover {
 
 .btn-up {
   position: fixed;
-  background-color: rgb(64, 151, 13);
+  background-color: rgb(50, 174, 179);
   right: 20px;
   bottom: 20px;
-  border-radius: 22px;
+  border-radius: 30px;
   cursor: pointer;
   width: 64px;
   height: 64px;
+
+  /* background: #67ebf1;
+  color: #070a03; */
+  box-shadow: 0 0 5px #0bdee8, 0 0 20px #62f1f8, 0 0 40px #68e4eb,
+    0 0 200px #5ae5ec;
+  -moz-transition: background-color 0.8s 0.1s ease;
+  -o-transition: background-color 0.8s 0.1s ease;
+  -webkit-transition: background-color 0.8s 0.1s ease;
 }
 
 .btn-up::before {
@@ -148,6 +190,10 @@ button:hover {
 
 @media (hover: hover) and (pointer: fine) {
   .btn-up:hover {
-    background-color: #2d6a75;
+    /* background-color: #2d6a75; */
+    background: #67ebf1;
+    color: #070a03;
+    box-shadow: 0 0 5px #0bdee8, 0 0 20px #62f1f8, 0 0 40px #68e4eb,
+      0 0 200px #5ae5ec;
   }
 }

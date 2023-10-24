@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Notiflix from 'notiflix';
 import './style.css';
 import SimpleLightbox from 'simplelightbox';
@@ -92,9 +91,9 @@ function onPageScrolling() {
   });
 }
 
-function createMarkup(images) {
-  const markup = images
-    .map(image => {
+function createMarkup(arr) {
+  const markup = arr
+    .map(arr => {
       const {
         webformatURL,
         largeImageURL,
@@ -103,7 +102,7 @@ function createMarkup(images) {
         views,
         comments,
         downloads,
-      } = image;
+      } = arr;
 
       return `<div class="photo-card">
         <a class="link" href="${largeImageURL}">
@@ -146,5 +145,4 @@ const btnUp = {
     };
   },
 };
-
 btnUp.addEventListener();

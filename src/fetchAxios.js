@@ -16,4 +16,3 @@ async function fetchImage(name, page = 1, limit = 60) {
 }
 
 export { fetchImage };
-
