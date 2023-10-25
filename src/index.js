@@ -7,14 +7,11 @@ import { fetchImage } from './fetchAxios';
 const form = document.querySelector('.search-form');
 const input = document.querySelector('.search-input');
 const gallery = document.querySelector('.gallery');
-const loadMore = document.querySelector('.load-more');
+const infitity = document.querySelector('.infitity-scroll');
 
 let page = 1;
 
 form.addEventListener('submit', onSubmit);
-
-loadMore.addEventListener('click', onLoadMoreBtn);
-const lightbox = new SimpleLightbox('.gallery a', { captionDelay: 300 });
 
 async function onSubmit(evt) {
   evt.preventDefault();
@@ -24,13 +21,13 @@ async function onSubmit(evt) {
   const value = inputValue.trim();
   if (!value) {
     Notiflix.Notify.failure('Sorry, blank line. Enter your request!');
-    loadMore.hidden = true;
+    infitity.hidden = true;
     return;
   }
   return await fetchThen(value);
 }
 
-loadMore.hidden = true;
+// loadMore.hidden = true;
 
 async function fetchThen(value) {
   try {
@@ -41,7 +38,7 @@ async function fetchThen(value) {
       Notiflix.Notify.failure(
         'Sorry, there are no images your search query. Please try again'
       );
-      loadMore.hidden = true;
+      infitity.hidden = true;
       return;
     }
     if (number > 0) {
@@ -49,14 +46,17 @@ async function fetchThen(value) {
     }
     createMarkup(array, gallery);
     lightbox.refresh();
-    loadMore.hidden = false;
+    infitity.hidden = false;
     if (array.length < 60) {
-      loadMore.hidden = true;
+      infitity.hidden = true;
     }
   } catch (error) {
     console.log(error);
   }
 }
+
+// infitity.addEventListener('click', onLoadMoreBtn);
+const lightbox = new SimpleLightbox('.gallery a', { captionDelay: 300 });
 
 async function onLoadMoreBtn() {
   const valueLoadBtn = input.value;
@@ -68,10 +68,10 @@ async function onLoadMoreBtn() {
     const totalHits = resp.data.totalHits;
     const maxIndex = (page - 1) * limitAdd + hits.length;
     createMarkup(hits, gallery);
-    onPageScrolling();
+    handlerScroll();
     lightbox.refresh();
     if (maxIndex >= totalHits) {
-      loadMore.hidden = true;
+      infitity.hidden = true;
       Notiflix.Notify.info(
         "We're sorry, but you've reached the end of search results."
       );
@@ -91,8 +91,8 @@ function onPageScrolling() {
   });
 }
 
-function createMarkup(arr) {
-  const markup = arr
+function createMarkup(array) {
+  const markup = array
     .map(arr => {
       const {
         webformatURL,
@@ -146,3 +146,89 @@ const btnUp = {
   },
 };
 btnUp.addEventListener();
+
+// const elements = {
+//   list: document.querySelector('.js-movie-list'),
+//   guard: document.querySelector('.js-guard'),
+// };
+const options = {
+  root: null,
+  rootMargin: '300px',
+};
+const observer = new IntersectionObserver(handlerLoadMore, options);
+// let page = 1;
+
+fetchImage(page)
+  .then(data => {
+    infitity.gallery.insertAdjacentHTML(
+      'beforeend',
+      createMarkup(data.results)
+    );
+    if (data.hits < data.totalHits) {
+      observer.observe(infitity);
+    }
+  })
+  .catch(err => console.log(err));
+
+// function serviceMovie(page = 1) {
+//   const BASE_URL = 'https://api.themoviedb.org/3';
+//   const END_POINT = '/trending/movie/week';
+//   const API_KEY = '345007f9ab440e5b86cef51be6397df1';
+//   const params = new URLSearchParams({
+//     api_key: API_KEY,
+//     page,
+//   });
+
+//   return fetch(`${BASE_URL}${END_POINT}?${params}`).then(resp => {
+//     if (!resp.ok) {
+//       throw new Error(resp.statusText);
+//     }
+//     return resp.json();
+//   });
+// }
+
+// function createMarkup(arr) {
+//   return arr
+//     .map(
+//       ({ poster_path, original_title, release_date, vote_average }) => `
+//       <li class="movie-card">
+//           <img src="https://image.tmdb.org/t/p/w300${poster_path}" loading="lazy" alt="${original_title}">
+//           <div class="movie-info">
+//           <h2>${original_title}</h2>
+//           <p>Release date: ${release_date}</p>
+//           <p>Vote Average: ${vote_average}</p>
+//           </div>
+//       </li>`
+//     )
+//     .join('');
+// }
+
+let counterObserver = 0;
+function handlerLoadMore(entries, observer) {
+  counterObserver += 1;
+  console.log('counterObserver', counterObserver);
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      page += 1;
+      onLoadMoreBtn(page)
+        .then(data => {
+          infitity.gallery.insertAdjacentHTML(
+            'beforeend',
+            createMarkup(data.results)
+          );
+          if (data.hits >= 500) {
+            observer.unobserve(infitity);
+          }
+        })
+        .catch(err => console.log(err));
+    }
+  });
+}
+
+document.addEventListener('scroll', handlerScroll);
+
+let counterScroll = 0;
+function handlerScroll() {
+  counterScroll += 1;
+  console.log('counterScroll', counterScroll);
+}
