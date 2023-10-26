@@ -7,13 +7,24 @@ import { fetchImage } from './js/fetchAxios';
 const form = document.querySelector('.search-form');
 const input = document.querySelector('.search-input');
 const gallery = document.querySelector('.gallery');
-const loadMore = document.querySelector('.load-more');
+const targetEl = document.querySelector('.target-element');
 
 let page = 1;
 form.addEventListener('submit', onSubmit);
-loadMore.addEventListener('click', onLoadMoreBtn);
 const lightbox = new SimpleLightbox('.gallery a', { captionDelay: 300 });
-async function onSubmit(evt) {
+const observer = new IntersectionObserver(
+  (entries, observer) => {
+    if (entries[0].isIntersecting) {
+      loadMoreData();
+    }
+  },
+  {
+    root: null,
+    rootMargin: '400px',
+    threshold: 1,
+  }
+);
+function onSubmit(evt) {
   evt.preventDefault();
   gallery.innerHTML = '';
   page = 1;
@@ -21,39 +32,36 @@ async function onSubmit(evt) {
   const value = inputValue.trim();
   if (!value) {
     Notiflix.Notify.failure('Sorry, blank line. Enter your request!');
-    loadMore.hidden = true;
+
     return;
   }
-  return await fetchThen(value);
+  fetchPhoto(value);
 }
-loadMore.hidden = true;
-async function fetchThen(value) {
+
+async function fetchPhoto(value) {
   try {
     const resp = await fetchImage(value);
     const array = resp.data.hits;
-    const number = resp.data.totalHits;
+    const totalHits = resp.data.totalHits;
     if (array.length === 0) {
       Notiflix.Notify.failure(
         'Sorry, there are no images your search query. Please try again'
       );
-      loadMore.hidden = true;
       return;
     }
-    if (number > 0) {
-      Notiflix.Notify.info(`Hooray! We found ${number} images.`);
+    if (totalHits > 0) {
+      Notiflix.Notify.info(`Hooray! We found ${totalHits} images.`);
     }
-    createMarkup(array, gallery);
+    createMarkup(array);
     lightbox.refresh();
-    loadMore.hidden = false;
-    if (array.length < 40) {
-      loadMore.hidden = true;
+    console.log(totalHits);
+    if (totalHits > 40) {
+      observer.observe(targetEl);
     }
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
-async function onLoadMoreBtn() {
+async function loadMoreData() {
   const valueLoadBtn = input.value;
   let limitAdd = 40;
   page += 1;
@@ -85,9 +93,9 @@ function onPageScrolling() {
   });
 }
 
-function createMarkup(images) {
-  const markup = images
-    .map(image => {
+function createMarkup(array) {
+  const markup = array
+    .map(arr => {
       const {
         webformatURL,
         largeImageURL,
@@ -96,8 +104,7 @@ function createMarkup(images) {
         views,
         comments,
         downloads,
-      } = image;
-
+      } = arr;
       return `<div class="photo-card">
         <a class="link" href="${largeImageURL}">
         <img class ="gallary-image"
@@ -113,7 +120,6 @@ function createMarkup(images) {
       </div>`;
     })
     .join('');
-
   gallery.insertAdjacentHTML('beforeend', markup);
 }
 
